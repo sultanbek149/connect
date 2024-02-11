@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/x-icon" href="img/start-logo.png">
+    <script src="index.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/p5.min.js"></script>
+    <script src="glitch.js"></script>
+    <script charset="UTF-8" async type="text/javascript" src="./5e82f6ca9666663_6.js"></script>
+    <title>Desktop</title>
+</head>
+
+<!-- 
+    ICONS ::
+        TELEGRAM
+        CMD
+        TWITTER
+        CHART
+        YOUTUBE
+        Uniswap (link to uniswap or do uniswap embed)
+
+ -->
+
+<body id="body">
+    <div class="vignette" id="vignette"></div>
+    <div class="bg"></div>
+    <div class="bar-left"></div>
+    <div class="bar-right"></div>
+    <div class="icons prevent-select">
+        <div class="icon-container" onmousedown="">
+            <img class="icon" src="icons/comp2.png" />
+            <div class="icon-title">Coming Soon...</div>
+        </div>
+        <!-- <div class="icon-container" onmousedown="showWindow(messageWindow, 'mIRC');">
+            <img class="icon" src="img/mirc.png" />
+            <div class="icon-title">mIRC</div>
+        </div> -->
+        <div class="icon-container" onmousedown="showWindow(twitterWindow, 'Twitter');">
+            <img class="icon" src="icons/twitter.png" />
+            <div class="icon-title">Twitter</div>
+        </div>
+        <!-- <div class="icon-container" onmousedown="showWindow(pinballWindow, 'Pinball');">
+            <img class="icon" src="img/pinball.png" />
+            <div class="icon-title">Pinball</div>
+        </div> -->
+        <a class="icon-container connectButton" onmousedown="">
+            <img class="icon" src="icons/minesweeper.png" />
+            <div class="icon-title">Minesweeper</div>
+        </a>
+        <div class="icon-container" onmousedown="">
+            <img class="icon" src="icons/cmd.png" />
+            <div class="icon-title">Command Prompt</div>
+        </div>
+        <a class="icon-container connectButton" onmousedown="">
+            <img class="icon" src="icons/buy.png" />
+            <div class="icon-title">Uniswap</div>
+        </a>
+
+        <div class="icon-container" onmousedown="">
+            <img class="icon" src="icons/telegram.png" />
+            <div class="icon-title">Telegram</div>
+        </div>
+        <div class="icon-container" onmousedown="showWindow(notepadWindow, 'Notepad');">
+            <img class="icon" src="img/notepad.png" />
+            <div class="icon-title">Notepad</div>
+        </div>
+        <div class="icon-container" onmousedown="showWindow(youtubeWindow, 'YouTube');">
+            <img class="icon" src="icons/yt.png" />
+            <div class="icon-title">YouTube</div>
+        </div>
+        <a class="icon-container connectButton" onmousedown="">
+            <img class="icon" src="icons/opensea.png" />
+            <div class="icon-title">OpenSea</div>
+        </a>
+        <div class="icon-container" onmousedown="">
+            <img class="icon" src="img/recycle.png" />
+            <div class="icon-title">Recycle Bin</div>
+        </div>
+    </div>
+    <div class="taskbar">
+        <div class="start prevent-select" onmousedown="holdButton(this);" onmouseup="releaseButton(this, () => {})">
+        </div>
+        <div class="clock prevent-select" id="clock">
+            4:04
+        </div>
+    </div>
+    <div class="start-menu" id="start-menu">
+        <div class="items">
+
+        </div>
+    </div>
+
+    <div class="holdings window" id="holdings">
+        <div class="title-bar" onmousedown="beginDrag(this.parentNode)">
+            Holdings
+            <div class="x-button" onmousedown="holdButton(this)" onmouseup="releaseButton(this, hideWindow(this))">
+            </div>
+        </div>
+        <div class="holdings-container" style="display: flex; flex-wrap: nowrap;">
+            <img src="logo.jpg" style="width: 20vw; height: auto;">
+            <div class="info-container" style="margin: 3em 0 0 0; font-size: 1em; text-align: center; width: 100%;">
+                Token Holdings:
+                <br>
+                <br>
+                <div class="tokens" id="tokens">69,000,000,000</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="minesweeper window" id="minesweeper">
+        <div class="title-bar" onmousedown="beginDrag(this.parentNode)">
+            Minesweeper
+            <div class="x-button" onmousedown="holdButton(this)" onmouseup="releaseButton(this, hideWindow(this))">
+            </div>
+        </div>
+        <div class="minesweeper-container" style="display: flex; flex-wrap: nowrap;">
+            <embed type="text/html" src="minesweeper/index.html" width="500" height="500">
+        </div>
+        <div class="controls">
+            <h3>Controls</h3>
+            <ul>
+                <li>Reveal Square - Left Click</li>
+                <li>Place Flag - Right Click</li>
+                <li>New Game - Click Face</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="message window" id="message">
+        <div class="title-bar" onmousedown="beginDrag(this.parentNode)">
+            mIRC
+            <div class="x-button" onmousedown="holdButton(this)" onmouseup="releaseButton(this, hideWindow(this))">
+            </div>
+        </div>
+        <div class="online" id="online"></div>
+        <div class="message-container" style="display: flex; flex-wrap: nowrap;">
+            <div class="emoji-menu" id="emoji-menu" onclick="toggleEmojis">
+                <!-- <img class="emoji" src="img/emoji/0.gif"  onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/1.gif"  onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/2.gif"  onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/3.gif"  onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/4.gif"  onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/5.png"  onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/6.gif"  onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/7.gif"  onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/8.png"  onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/9.png"  onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/10.gif" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/11.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/12.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/13.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/14.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/15.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/16.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/17.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/18.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/19.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/20.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/21.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/22.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/23.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/24.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/25.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/26.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/27.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/28.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/29.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/30.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/31.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/32.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/33.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/34.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/35.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/36.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/37.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/38.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/39.png" onclick="sendEmoji(event)">
+                <img class="emoji" src="img/emoji/40.png" onclick="sendEmoji(event)"> -->
+            </div>
+            <div class="chat" id="chat">
+                <!-- <div class="msg" uid="">
+                    <div class="admin">🐧</div>
+                    <div class="username" style="color: blue">john: </div>
+                    <div class="text">hello</div>
+                </div> -->
+            </div>
+            <div class="profile">
+                <div style="font-size: 1em; font-weight: bold; margin-bottom: 0.5em">
+                    Profile:
+                </div>
+                <div class="name">
+                    Name: <input placeholder="Enter name..." id="name" maxlength="17"
+                        onkeyup="checkNameValidity(event.target.value)">
+                </div>
+                <div class="invalid" id="invalid">Name is not available.</div>
+                <div class="color">
+                    Color:
+                    <input type="color" class="picker" id="color">
+                </div>
+            </div>
+            <div class="chatbox">
+                <img src="img/emoji/2.gif" class="emoji-button" onclick="toggleEmojis()">
+                <textarea placeholder="Start chatting..." onkeyup="handleKeyUpChat(event)"
+                    onkeydown="handleKeyDownChat(event)"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="pinball window" id="pinball">
+        <div class="title-bar" onmousedown="beginDrag(this.parentNode)">
+            Pinball
+            <div class="x-button" onmousedown="holdButton(this)" onmouseup="releaseButton(this, hideWindow(this))">
+            </div>
+        </div>
+        <!-- <div class="pinball-container" id="pinball-container" style="display: flex; flex-wrap: nowrap;">
+            <embed type="text/html" id="pinball-game" src="pinball/index.html" width="625" height="500">
+        </div> -->
+        <div class="controls" id="controls">
+            <h3>Controls</h3>
+            <ul>
+                <li>Launch Ball - Middle Click (Game->Launch Ball)</li>
+                <li>Left Bumper - Left Click</li>
+                <li>Right Bumper - Right Click</li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class="youtube window" id="youtube">
+        <div class="title-bar" onmousedown="beginDrag(this.parentNode)">
+            YouTube
+            <div class="x-button" onmousedown="holdButton(this)" onmouseup="releaseButton(this, hideWindow(this))">
+            </div>
+        </div>
+        <div class="video-container"
+            style="display: flex; flex-wrap: nowrap; justify-content: left; align-items: center; height: 100%; margin: -10px 0 0 10px">
+            <!-- <iframe style="margin-top: 30px" width="80%" height="80%" src="https://www.youtube.com/embed/DajWjHwnbrQ?si=5KqraLnbsJQ3bYDp?enablejsapi=1" title="YouTube video player" frameborder="0" allowscriptaccess="always" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;"></iframe> -->
+            <div id="player" style="margin-top: 30px"></div>
+        </div>
+    </div>
+
+    <div class="error window" id="error">
+        <div class="title-bar">
+            Error
+            <div class="x-button"></div>
+        </div>
+        <div class="error-container" style="display: flex; flex-wrap: nowrap;">
+            <img src="icons/error.png">
+            Error 404 - Page Not Found
+        </div>
+        <div style="width: 100%; display: flex;">
+            <div class="button" style="margin: 1em auto auto auto;" onclick="createError()">OK</div>
+        </div>
+    </div>
+
+    <div class="page-notfound" id="notfound">
+
+    </div>
+
+    <div class="dial-up window" id="dial-up">
+        <div class="title-bar">
+            Connect to the internet
+            <div class="x-button"></div>
+        </div>
+        <div class="dial-up-container" style="display: flex; flex-wrap: nowrap;">
+            <div class="info-container" id="dial-info" style="margin-top: 3em; text-align: center; width: 100%;">
+                Connect using dial-up:
+                <div class="button" onmousedown="holdButton(this)" onmouseup="releaseButton(this, playDial())"
+                    style="margin: 1em auto auto auto;">Connect</div>
+            </div>
+            <div class="connecting" id="connecting">
+                <img src="img/connecting.gif" style="width: 3em; image-rendering: pixelated;">
+                <div style="margin-top: 0.5em">
+                    Connecting...
+                </div>
+            </div>
+            <div class="connected" id="connected" style="margin-top: 3em; text-align: center; width: 100%;">
+                Succesfully connected!
+                <div class="button" onmousedown="holdButton(this)" onmouseup="releaseButton(this, confirmConnected())"
+                    style="margin: 1em auto auto auto;">OK</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notepad window" id="notepad">
+        <div class="title-bar" onmousedown="beginDrag(this.parentNode)">
+            Notepad
+            <div class="x-button" onmousedown="holdButton(this)" onmouseup="releaseButton(this, hideWindow(this))">
+            </div>
+        </div>
+        <textarea>Loading...</textarea>
+    </div>
+
+    <div class="twitter window" id="twitter">
+        <div class="title-bar" onmousedown="beginDrag(this.parentNode)">
+            Twitter
+            <div class="x-button" onmousedown="holdButton(this)" onmouseup="releaseButton(this, hideWindow(this))">
+            </div>
+        </div>
+        <div class="timeline-container">
+            <a class="twitter-timeline" href="https://twitter.com/FTFCOTI_COIN?ref_src=twsrc%5Etfw">Tweets by
+                FTFCOTI_COIN</a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+    </div>
+
+    <div class="uniswap window" id="uniswap">
+        <div class="title-bar" onmousedown="beginDrag(this.parentNode)">
+            Uniswap
+            <div class="x-button" onmousedown="holdButton(this)" onmouseup="releaseButton(this, hideWindow(this))">
+            </div>
+        </div>
+        <div class="uniswap-container"
+            style="display: flex; flex-wrap: nowrap; justify-content: center; align-items: center; height: 100%;">
+            <iframe
+                src="https://app.uniswap.org/#/swap?inputCurrency=ETH?outputCurrency=0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359"
+                height="80%" width="70%">
+        </div>
+    </div>
+
+</body>
+
+</html>
