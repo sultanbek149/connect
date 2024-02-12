@@ -545,7 +545,7 @@ input:focus {
   background: #008083;
   /* background-image: url("img/bg.png"); */
   background-size: cover;
-  width: 66vw;
+  width: 100vw;
   height: 100vh;
   margin: auto;
   margin-top: -10px;
@@ -559,6 +559,7 @@ input:focus {
   z-index: 99;
   top: 0;
   left: 0;
+  display: none;
 }
 
 .bar-right {
@@ -842,4 +843,26 @@ body *::-webkit-scrollbar-button:single-button:horizontal:increment {
 
 body *::-webkit-scrollbar-corner {
   background: silver;
+}
+
+@media (max-width: 768px) {
+  .bar-right {
+    display: none;
+  }
+  .bar-left {
+    display: none;
+  }
+  .bg {
+    width: 100vw;
+  }
+
+  .dial-up {
+    left: 50%;
+    transform: translate(-50%);
+    width: 50vw;
+  }
+
+  .dial-up .title-bar {
+    width: 50vw;
+  }
 }
